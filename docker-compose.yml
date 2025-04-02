@@ -1,0 +1,26 @@
+services:
+  frontend:
+    build:
+      context: ./polis.client
+    ports:
+      - "80:80"
+    environment:
+      REACT_APP_API_URL: http://localhost:8000
+    
+  backend:
+    build:
+      context: ./polis.server
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgres://polis:polis@db:5432/polis
+      SECRET_KEY: secret_key
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: polis
+      POSTGRES_PASSWORD: polis
+      POSTGRES_DB: polis
+    ports:
+      - "5432:5432"
